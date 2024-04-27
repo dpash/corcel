@@ -5,6 +5,7 @@ namespace Corcel\Model;
 use Corcel\Concerns\AdvancedCustomFields;
 use Corcel\Concerns\MetaFields;
 use Corcel\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Term.
@@ -16,6 +17,12 @@ class Term extends Model
 {
     use MetaFields;
     use AdvancedCustomFields;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'term_group',
+    ];
 
     /**
      * @var string
@@ -33,9 +40,9 @@ class Term extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne<Taxonomy>
      */
-    public function taxonomy()
+    public function taxonomy(): HasOne
     {
         return $this->hasOne(Taxonomy::class, 'term_id');
     }
